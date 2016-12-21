@@ -189,3 +189,5 @@ ENV/
 .ropeproject
 
 # End of https://www.gitignore.io/api/linux,macos,pycharm,python
+
+webhookforwarder/settings.py

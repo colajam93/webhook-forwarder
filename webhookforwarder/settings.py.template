@@ -1,0 +1,30 @@
+from webhookforwarder.config import Config, IconType
+
+# forward all messages
+conf1 = Config(token='TOKEN', team_id='TEAM_ID', channel_id='CHANNEL_ID',
+               forward_to='https://incoming.webhook.address')
+
+# forward only user1 and user2 messages and specify icon
+user1 = 'USER_ID'
+user2 = 'USER_ID'
+conf2 = Config(token='TOKEN', team_id='TEAM_ID', channel_id='CHANNEL_ID',
+               forward_to='https://incoming.webhook.address',
+               user_ids=[user1, user2],
+               icon_dict={user1: (IconType.emoji, ':ghost:'),
+                          user2: (IconType.url, 'ICON_URL')}
+               )
+
+# forward all messages and response back
+# all callback take Request object and return str
+# see request.py for available fields
+conf3 = Config(token='TOKEN', team_id='TEAM_ID', channel_id='CHANNEL_ID',
+               forward_to='https://incoming.webhook.address',
+               response_func=lambda r: r.text + ' forwarded',
+               response_name_func=lambda r: r.user_name + ' bot')
+
+# forward all messages and transform messages
+conf4 = Config(token='TOKEN', team_id='TEAM_ID', channel_id='CHANNEL_ID',
+               forward_to='https://incoming.webhook.address',
+               forward_func=lambda r: ':ghost: ' + r.text)
+
+forward_configs = [conf1, conf2, conf3, conf4]
