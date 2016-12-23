@@ -1,0 +1,13 @@
+[Unit]
+Description=Forward slack's outgoing webhook to incoming webhook
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/uwsgi --ini /home/user/webhook-forwarder/webhook-forwarder.ini
+ExecStop=/bin/kill -HUP $MAINPID
+User=user
+Group=user
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
